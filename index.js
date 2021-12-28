@@ -5,6 +5,7 @@ const obtenerUsuarios = () =>{
         console.log(data)
         tarjeta(data.results)
         clickTarjeta(data.results)
+        volverListadoUsuario()
     })
 }    
     
@@ -20,48 +21,63 @@ const tarjeta = (info)=>{
         `
     }, "")
     contenedor.innerHTML = html
-
 }
-obtenerUsuarios()
-
-
 
 const clickTarjeta = ()=>{
     const imgBotones = document.querySelectorAll(".img-boton")
     const contenedor = document.querySelector(".contenedor")
     const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
 
-    for (let i = 1; i < imgBotones.length; i++) {
+    for (let i = 0; i < imgBotones.length; i++) {
         imgBotones[i].onclick=()=>{
-            console.log(i);
+            console.log(imgBotones[i].id);
             contenedor.classList.add("display-none");
-            tarjetaDetalles.classList.remove("display-none");
-            mostrarTarjetaDetalles(i)
+            tarjetaDetalles.classList.toggle("display-none");
+            mostrarTarjetaDetalles(imgBotones[i].id)
         }
     }
-}
-clickTarjeta()
-
-
-const mostrarTarjetaDetalles = (id)=>{
-    fetch(`https://rickandmortyapi.com/api/character/${id}`)
-    .then((res) =>  res.json())
-    .then((data) => {
-    console.log(data)
-    detalles(data)
-    })
 }
 
 const detalles = (data) =>{
     const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
     const detallesEnHTML =
-    `<h2>${data.name}</h2>
+    `
+    <h1>${data.name}</h1>
+    <h2>Status: ${data.status}</h2>
+    <h2>Species: ${data.species}</h2>
+    <h2>Gender: ${data.gender}</h2>
+    <h2>Location: ${data.location.name}</h2>
     <div>
         <img src= "${data.image}"/>
     </div>
+
+    <button type="button" class="boton-atras" id="${data.id}"> Atrás </button>
     `
     tarjetaDetalles.innerHTML= detallesEnHTML
 }  
 
+const mostrarTarjetaDetalles = (i) => {
+    fetch(`https://rickandmortyapi.com/api/character/${i}`)
+    .then((res) =>  res.json())
+    .then((data) => {
+    detalles(data)
+    volverListadoUsuario()
 
+    })
+}
+
+const volverListadoUsuario = ()=>{
+    const contenedor = document.querySelector(".contenedor")
+    const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
+    const botonAtras = document.querySelector(".boton-atras")
+
+    botonAtras.onclick =()=>{
+        contenedor.classList.remove("display-none");
+        tarjetaDetalles.classList.add("display-none");
+    }
+}
+
+
+obtenerUsuarios()
+clickTarjeta()
 mostrarTarjetaDetalles()
