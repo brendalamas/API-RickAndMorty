@@ -31,8 +31,8 @@ const clickTarjeta = ()=>{
     for (let i = 0; i < imgBotones.length; i++) {
         imgBotones[i].onclick=()=>{
             console.log(imgBotones[i].id);
-            contenedor.classList.add("display-none");
-            tarjetaDetalles.classList.toggle("display-none");
+            contenedor.style.display = "none"
+            tarjetaDetalles.style.display = "flex"
             mostrarTarjetaDetalles(imgBotones[i].id)
         }
     }
@@ -72,8 +72,8 @@ const volverListadoUsuario = ()=>{
     const botonAtras = document.querySelector(".boton-atras")
 
     botonAtras.onclick =()=>{
-        contenedor.classList.remove("display-none");
-        tarjetaDetalles.classList.add("display-none");
+        contenedor.style.display = "flex"
+        tarjetaDetalles.style.display = "none"
     }
 }
 
