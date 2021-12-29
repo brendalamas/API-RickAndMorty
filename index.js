@@ -50,7 +50,6 @@ const detalles = (data) =>{
     <div>
         <img src= "${data.image}"/>
     </div>
-
     <button type="button" class="boton-atras" id="${data.id}"> Atrás </button>
     `
     tarjetaDetalles.innerHTML= detallesEnHTML
@@ -76,8 +75,6 @@ const volverListadoUsuario = ()=>{
         tarjetaDetalles.style.display = "none"
     }
 }
-
-
 obtenerUsuarios()
 clickTarjeta()
 mostrarTarjetaDetalles()
