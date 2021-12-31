@@ -16,7 +16,7 @@ const tarjeta = (info)=>{
         return acc + 
         `<div class="tarjeta">
             <div class="tarjeta-nombre"> ${elemento.name} </div>
-            <img class="img-boton" src= "${elemento.image}" id="${elemento.id}" />
+            <img class="img-principal" src= "${elemento.image}" id="${elemento.id}" />
         </div>
         `
     }, "")
@@ -24,35 +24,37 @@ const tarjeta = (info)=>{
 }
 
 const clickTarjeta = ()=>{
-    const imgBotones = document.querySelectorAll(".img-boton")
+    const imgBotones = document.querySelectorAll(".img-principal")
     const contenedor = document.querySelector(".contenedor")
-    const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
+    const contenedorDetalles = document.querySelector(".contenedor-detalles")
 
     for (let i = 0; i < imgBotones.length; i++) {
         imgBotones[i].onclick=()=>{
             console.log(imgBotones[i].id);
             contenedor.style.display = "none"
-            tarjetaDetalles.style.display = "flex"
+            contenedorDetalles.style.display = "flex"
             mostrarTarjetaDetalles(imgBotones[i].id)
         }
     }
 }
 
 const detalles = (data) =>{
-    const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
+    const contenedorDetalles = document.querySelector(".contenedor-detalles")
     const detallesEnHTML =
     `
-    <h1>${data.name}</h1>
-    <h2>Status: ${data.status}</h2>
-    <h2>Species: ${data.species}</h2>
-    <h2>Gender: ${data.gender}</h2>
-    <h2>Location: ${data.location.name}</h2>
-    <div>
-        <img src= "${data.image}"/>
+    <div class="tarjeta-detalles">
+        <h1 class="titulo-detalles-nombre">${data.name}</h1>
+        <h2>Status: ${data.status}</h2>
+        <h2>Species: ${data.species}</h2>
+        <h2>Gender: ${data.gender}</h2>
+        <h2>Location: ${data.location.name}</h2>
+        <div>
+            <img class="img-detalles" src= "${data.image}"/>
+        </div>
+        <button type="button" class="boton-atras" id="${data.id}"> Atrás </button>
     </div>
-    <button type="button" class="boton-atras" id="${data.id}"> Atrás </button>
     `
-    tarjetaDetalles.innerHTML= detallesEnHTML
+    contenedorDetalles.innerHTML= detallesEnHTML
 }  
 
 const mostrarTarjetaDetalles = (i) => {
@@ -67,12 +69,12 @@ const mostrarTarjetaDetalles = (i) => {
 
 const volverListadoUsuario = ()=>{
     const contenedor = document.querySelector(".contenedor")
-    const tarjetaDetalles = document.querySelector(".tarjeta-detalles")
+    const contenedorDetalles = document.querySelector(".contendor-detalles")
     const botonAtras = document.querySelector(".boton-atras")
 
     botonAtras.onclick =()=>{
         contenedor.style.display = "flex"
-        tarjetaDetalles.style.display = "none"
+        contenedorDetalles.style.display = "none"
     }
 }
 obtenerUsuarios()
