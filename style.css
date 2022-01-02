@@ -35,14 +35,13 @@ body {
     margin-bottom: 25px;
 }
 .contenedor-detalles{
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
-    display: none;
 }
 
 .tarjeta-detalles{
-    display: flex;
+    display: none;
     flex-direction: column; 
     align-items: center;
     width: auto;
