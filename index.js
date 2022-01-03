@@ -5,7 +5,6 @@ const obtenerUsuarios = () =>{
         console.log(data)
         tarjeta(data.results)
         clickTarjeta(data.results)
-        volverListadoUsuario()
     })
 }    
     
@@ -30,10 +29,12 @@ const clickTarjeta = ()=>{
 
     for (let i = 0; i < imgBotones.length; i++) {
         imgBotones[i].onclick=()=>{
-            console.log(imgBotones[i].id);
+            // console.log(imgBotones[i].id);
             contenedor.style.display = "none"
             contenedorDetalles.style.display = "flex"
-            mostrarTarjetaDetalles(imgBotones[i].id)
+            const idDelBoton = imgBotones[i].id
+            console.log(idDelBoton);
+            mostrarTarjetaDetalles(idDelBoton)
         }
     }
 }
@@ -47,8 +48,7 @@ const detalles = (data) =>{
         <h2>Status: ${data.status}</h2>
         <h2>Species: ${data.species}</h2>
         <h2>Gender: ${data.gender}</h2>
-        <h2>Location: ${data.location.name}</h2>
-        <div>
+        <div class="contenedor-imagen-detalle">
             <img class="img-detalles" src= "${data.image}"/>
         </div>
         <button type="button" class="boton-atras" id="${data.id}"> Atrás </button>
@@ -57,26 +57,32 @@ const detalles = (data) =>{
     contenedorDetalles.innerHTML= detallesEnHTML
 }  
 
-const mostrarTarjetaDetalles = (i) => {
-    fetch(`https://rickandmortyapi.com/api/character/${i}`)
+const mostrarTarjetaDetalles = (idDelBoton) => {
+    fetch(`https://rickandmortyapi.com/api/character/${idDelBoton}`)
     .then((res) =>  res.json())
     .then((data) => {
     detalles(data)
     volverListadoUsuario()
-
     })
 }
 
 const volverListadoUsuario = ()=>{
-    const contenedor = document.querySelector(".contenedor")
-    const contenedorDetalles = document.querySelector(".contendor-detalles")
     const botonAtras = document.querySelector(".boton-atras")
-
     botonAtras.onclick =()=>{
-        contenedor.style.display = "flex"
-        contenedorDetalles.style.display = "none"
-    }
+        const contenedor = document.querySelector(".contenedor")
+        const contenedorDetalles = document.querySelector(".contenedor-detalles")
+
+        contenedor.style.display ="flex"
+        contenedorDetalles.style.display="none"
+
+    }  
+    
+    
 }
+
+
+
 obtenerUsuarios()
 clickTarjeta()
 mostrarTarjetaDetalles()
+
